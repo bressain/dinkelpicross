@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>DinkelPicross Example</title>
+
+    <link rel="stylesheet" type="text/css" href="dinkelPicross.css" />
+
+    <script type="text/javascript" src="lib/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="lib/underscore.js"></script>
+    <script type="text/javascript" src="dinkelPicross.js"></script>
+    <script>
+        $(document).ready(function () {
+            var board = new DinkelPicross.Board([[1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0]]);
+            DinkelPicross.createBuildUi(board, $("#dinkel-picross"));
+        });
+    </script>
+</head>
+<body>
+    <div id="dinkel-picross"></div>
+</body>
+</html>

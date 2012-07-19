@@ -1,0 +1,20 @@
+#dinkel-picross .cell {
+    border: 1px solid black;
+    height: 20px;
+    width: 20px;
+    float: left;
+    cursor: pointer;
+    background-color: white;
+}
+
+#dinkel-picross .full {
+    background-color: black;
+}
+
+#dinkel-picross .marked {
+    background-color: gray;
+}
+
+#dinkel-picross .error {
+    background-color: red;
+}

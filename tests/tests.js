@@ -85,4 +85,23 @@
         this.board.setCellFull(1, 1);
         strictEqual(this.board.getCell(1, 1), undefined);
     });
+
+    test("boardCompleted returns true when board matches solution", function () {
+        this.board.setCellFull(0, 0);
+        this.board.setCellFull(0, 1);
+        this.board.setCellFull(0, 2);
+        this.board.setCellFull(0, 3);
+        this.board.setCellFull(1, 0);
+        this.board.setCellFull(1, 4);
+        this.board.setCellFull(2, 0);
+        this.board.setCellFull(2, 4);
+        this.board.setCellFull(3, 0);
+        this.board.setCellFull(3, 4);
+        this.board.setCellFull(4, 0);
+        this.board.setCellFull(4, 1);
+        this.board.setCellFull(4, 2);
+        ok(!this.board.boardCompleted());
+        this.board.setCellFull(4, 3);
+        ok(this.board.boardCompleted());
+    });
 }());
