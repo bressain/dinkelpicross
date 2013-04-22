@@ -53,35 +53,35 @@
         strictEqual(this.board.getCell(1, 1), 0);
     });
 
-    test("setCellMarked sets the given cell to 'marked'", function () {
+    test("toggleCellMarked sets the given cell to 'marked'", function () {
         strictEqual(this.board.getCell(0, 0), undefined);
-        this.board.setCellMarked(0, 0);
+        this.board.toggleCellMarked(0, 0);
         strictEqual(this.board.getCell(0, 0), 0);
     });
 
-    test("setCellMarked when full is ignored", function () {
+    test("toggleCellMarked when full is ignored", function () {
         this.board.setCellFull(0, 0);
-        this.board.setCellMarked(0, 0);
+        this.board.toggleCellMarked(0, 0);
         strictEqual(this.board.getCell(0, 0), 1);
     });
 
-    test("setCellMarked toggles when called multiple times", function () {
-        this.board.setCellMarked(0, 0);
+    test("toggleCellMarked toggles when called multiple times", function () {
+        this.board.toggleCellMarked(0, 0);
         strictEqual(this.board.getCell(0, 0), 0);
-        this.board.setCellMarked(0, 0);
+        this.board.toggleCellMarked(0, 0);
         strictEqual(this.board.getCell(0, 0), undefined);
-        this.board.setCellMarked(0, 0);
+        this.board.toggleCellMarked(0, 0);
         strictEqual(this.board.getCell(0, 0), 0);
     });
 
-    test("setCellMarked doesn't toggle when cell is an error cell", function () {
+    test("toggleCellMarked doesn't toggle when cell is an error cell", function () {
         raises(function () { this.board.setCellFull(1, 1) });
-        this.board.setCellMarked(1, 1);
+        this.board.toggleCellMarked(1, 1);
         strictEqual(this.board.getCell(1, 1), 0);
     });
 
     test("setCellFull sets cell to 'empty' when cell is 'marked' and not fail if doesn't match solution", function () {
-        this.board.setCellMarked(1, 1);
+        this.board.toggleCellMarked(1, 1);
         this.board.setCellFull(1, 1);
         strictEqual(this.board.getCell(1, 1), undefined);
     });
@@ -103,5 +103,16 @@
         ok(!this.board.boardCompleted());
         this.board.setCellFull(4, 3);
         ok(this.board.boardCompleted());
+    });
+
+    test("getRunsOnX gives the solution runs on the given x-axis", function () {
+        deepEqual(this.board.getRunsOnX(0), [4]);
+        deepEqual(this.board.getRunsOnX(1), [1,1]);
+    });
+
+    test("getRunsOnY gives the solution runs on the given y-axis", function () {
+        deepEqual(this.board.getRunsOnY(0), [5]);
+        deepEqual(this.board.getRunsOnY(1), [1,1]);
+        deepEqual(this.board.getRunsOnY(4), [3]);
     });
 }());

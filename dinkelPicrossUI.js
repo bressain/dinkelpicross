@@ -23,7 +23,7 @@ DinkelPicross.createBuildUi = function (board, boardEl) {
     $(".cell").bind("contextmenu", function (e) {
         var point = parseCellId(this);
 
-        board.setCellMarked(point.x, point.y);
+        board.toggleCellMarked(point.x, point.y);
 
         setCellClass(this, point.x, point.y);
 

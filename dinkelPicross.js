@@ -6,7 +6,9 @@ var DinkelPicross = window.DinkelPicross || {};
 DinkelPicross.Board = function (solutionArray) {
     var solution = solutionArray,
         board = initializeBoard(),
-        errorLocations = [];
+        errorLocations = [],
+        FULL_CELL = 1,
+        MARKED_CELL = 0;
 
     this.width = solution[0].length;
     this.height = solution.length;
@@ -17,29 +19,28 @@ DinkelPicross.Board = function (solutionArray) {
     };
 
     this.setCellFull = function (x, y) {
-        if (this.isErrorCell(x, y))
-            return;
+        if (this.isErrorCell(x, y)) return;
 
-        if (board[x][y] === 0) {
-            this.setCellMarked(x, y);
+        if (board[x][y] === MARKED_CELL) {
+            this.toggleCellMarked(x, y);
             return;
         }
 
         if (!solution[x][y]) {
-            this.setCellMarked(x, y);
+            this.toggleCellMarked(x, y);
             this.errors++;
             errorLocations.push({ x: x, y: y });
             throw new Error("Does not match solution");
         }
 
-        board[x][y] = 1;
+        board[x][y] = FULL_CELL;
     };
 
-    this.setCellMarked = function (x, y) {
+    this.toggleCellMarked = function (x, y) {
         if (board[x][y] || this.isErrorCell(x, y))
             return;
 
-        board[x][y] = board[x][y] !== 0 ? 0 : undefined;
+        board[x][y] = board[x][y] !== MARKED_CELL ? MARKED_CELL : undefined;
     };
 
     this.isErrorCell = function (x, y) {
@@ -51,12 +52,50 @@ DinkelPicross.Board = function (solutionArray) {
     this.boardCompleted = function () {
         for (var i = 0; i < solution.length; i++) {
             for (var j = 0; j < solution.length; j++) {
-                if (solution[i][j] === 1 && board[i][j] !== 1) {
+                if (solution[i][j] === FULL_CELL && board[i][j] !== FULL_CELL) {
                     return false;
                 }
             }
         }
         return true;
+    };
+
+    this.getRunsOnX = function (x) {
+        var runs = [],
+            current = 0;
+
+        solutionArray[x].forEach(function (item) {
+            if (item === FULL_CELL) {
+                current += 1;
+            } else {
+                if (current > 0)
+                    runs.push(current);
+                current = 0;
+            }
+        });
+
+        if (current > 0)
+            runs.push(current);
+        return runs;
+    };
+
+    this.getRunsOnY = function (y) {
+        var runs = [],
+            current = 0;
+
+        solutionArray.forEach(function (x) {
+            if (x[y] === FULL_CELL) {
+                current += 1;
+            } else {
+                if (current > 0)
+                    runs.push(current);
+                current = 0;
+            }
+        });
+
+        if (current > 0)
+            runs.push(current);
+        return runs;
     };
 
     function initializeBoard() {
@@ -67,4 +106,5 @@ DinkelPicross.Board = function (solutionArray) {
 
         return board;
     }
+
 };
