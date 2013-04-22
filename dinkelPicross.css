@@ -1,10 +1,18 @@
 #dinkel-picross .cell {
-    border: 1px solid black;
+    border: 1px solid lightgray;
     height: 20px;
     width: 20px;
     float: left;
     cursor: pointer;
     background-color: white;
+}
+
+#dinkel-picross .run {
+    border: 1px solid #ffffff;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    float: left;
 }
 
 #dinkel-picross .full {

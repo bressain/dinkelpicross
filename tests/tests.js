@@ -115,4 +115,12 @@
         deepEqual(this.board.getRunsOnY(1), [1,1]);
         deepEqual(this.board.getRunsOnY(4), [3]);
     });
+
+    test("getAllRunsOnX gives the solution runs for all x-axis", function () {
+        deepEqual(this.board.getAllRunsOnX(), [[4],[1,1],[1,1],[1,1],[4]]);
+    });
+
+    test("getAllRunsOnY gives the solution runs for all y-axis", function () {
+        deepEqual(this.board.getAllRunsOnY(), [[5],[1,1],[1,1],[1,1],[3]]);
+    });
 }());

@@ -79,6 +79,13 @@ DinkelPicross.Board = function (solutionArray) {
         return runs;
     };
 
+    this.getAllRunsOnX = function () {
+        var i, runs = [];
+        for (i = 0; i < solutionArray.length; i++)
+            runs.push(this.getRunsOnX(i));
+        return runs;
+    };
+
     this.getRunsOnY = function (y) {
         var runs = [],
             current = 0;
@@ -95,6 +102,13 @@ DinkelPicross.Board = function (solutionArray) {
 
         if (current > 0)
             runs.push(current);
+        return runs;
+    };
+
+    this.getAllRunsOnY = function () {
+        var i, runs = [];
+        for (i = 0; i < solutionArray[0].length; i++)
+            runs.push(this.getRunsOnY(i));
         return runs;
     };
 
